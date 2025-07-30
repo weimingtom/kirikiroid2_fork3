@@ -1,0 +1,36 @@
+[submodule "3rd/libarchive"]
+	path = 3rd/libarchive
+	url = git@github.com:libarchive/libarchive
+[submodule "3rd/breakpad"]
+	path = 3rd/breakpad
+	url = git@github.com:google/breakpad
+[submodule "3rd/ffmpeg"]
+	path = 3rd/ffmpeg
+	url = git@github.com:zeas2/FFmpeg.git
+[submodule "3rd/libjpeg-turbo"]
+	path = 3rd/libjpeg-turbo
+	url = git@github.com:krkrz/libjpeg-turbo
+[submodule "3rd/linux-syscall-support"]
+	path = 3rd/linux-syscall-support
+	url = git@github.com:adelshokhy112/linux-syscall-support
+[submodule "3rd/lz4"]
+	path = 3rd/lz4
+	url = git@github.com:lz4/lz4
+[submodule "3rd/oniguruma"]
+	path = 3rd/oniguruma
+	url = git@github.com:krkrz/oniguruma
+[submodule "3rd/openal-soft"]
+	path = 3rd/openal-soft
+	url = git@github.com:kcat/openal-soft
+[submodule "3rd/opencv"]
+	path = 3rd/opencv
+	url = git@github.com:opencv/opencv
+[submodule "3rd/oboe"]
+	path = 3rd/oboe
+	url = git@github.com:google/oboe
+[submodule "3rd/android-bpg"]
+	path = 3rd/android-bpg
+	url = git@github.com:alexandruc/android-bpg
+[submodule "3rd/jxrlib"]
+	path = 3rd/jxrlib
+	url = git@github.com:krkrz/jxrlib
