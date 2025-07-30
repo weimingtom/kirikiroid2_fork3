@@ -1,8 +1,14 @@
 # kirikiroid2_fork3
 [WIP] My third fork of kirikiroid2, based on ningshanwutuobang/Kirikiroid2
 
+## For Xubuntu 20.04, desktop amd64, in VirtualBox  
+* $ sudo apt update
+* $ sudo apt install lftp gedit pkg-config make gcc g++ cmake
+* $ sudo apt install libglew-dev libfreetype-dev libglfw3-dev libsdl2-dev libvorbis-dev libwebp-dev libboost-locale-dev libopencv-dev liblz4-dev libopenal-dev libgtk2.0-dev libarchive-dev libopusfile-dev libminizip-dev libjpeg-dev
+* $ make clean && make -j8 && make test
+* $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
-
+=========================================================
 
 # Original Readme
 
