@@ -1,3 +1,11 @@
+# kirikiroid2_fork3
+[WIP] My third fork of kirikiroid2, based on ningshanwutuobang/Kirikiroid2
+
+
+
+
+# Original Readme
+
 [![Android CI](https://github.com/ningshanwutuobang/Kirikiroid2/actions/workflows/build_apk.yaml/badge.svg)](https://github.com/ningshanwutuobang/Kirikiroid2/actions/workflows/build_apk.yaml)
 
 Kirikiroid2 - A cross-platform port of Kirikiri2/KirikiriZ
