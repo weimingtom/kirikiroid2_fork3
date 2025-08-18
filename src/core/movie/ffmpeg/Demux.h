@@ -1,8 +1,10 @@
 #pragma once
 #include "KRMovieDef.h"
+#if MY_USE_FFMPEG
 extern "C" {
 #include "libavcodec/avcodec.h"
 }
+#endif
 #include <vector>
 #include <string>
 
@@ -37,12 +39,16 @@ public:
 		uniqueId = 0;
 		dvdNavId = 0;
 		demuxerId = -1;
+#if MY_USE_FFMPEG		
 		codec = (AVCodecID)0; // AV_CODEC_ID_NONE
+#endif		
 		codec_fourcc = 0;
+#if MY_USE_FFMPEG		
 		profile = FF_PROFILE_UNKNOWN;
 		level = FF_LEVEL_UNKNOWN;
 		type = STREAM_NONE;
 		source = STREAM_SOURCE_NONE;
+#endif		
 		iDuration = 0;
 		pPrivate = NULL;
 		ExtraData = NULL;
@@ -65,11 +71,15 @@ public:
 	int uniqueId;          // unique stream id
 	int dvdNavId;
 	int64_t demuxerId; // id of the associated demuxer
+#if MY_USE_FFMPEG	
 	AVCodecID codec;
+#endif	
 	unsigned int codec_fourcc; // if available
 	int profile; // encoder profile of the stream reported by the decoder. used to qualify hw decoders.
 	int level;   // encoder level of the stream reported by the decoder. used to qualify hw decoders.
+#if MY_USE_FFMPEG
 	StreamType type;
+#endif
 	int source;
 	bool realtime;
 	unsigned int bandwidth;
@@ -114,7 +124,9 @@ public:
 		bVFR = false;
 		bPTSInvalid = false;
 		bForcedAspect = false;
+#if MY_USE_FFMPEG		
 		type = STREAM_VIDEO;
+#endif		
 		iOrientation = 0;
 		iBitsPerPixel = 0;
 	}
@@ -144,7 +156,9 @@ public:
 		iBitRate = 0;
 		iBitsPerSample = 0;
 		iChannelLayout = 0;
+#if MY_USE_FFMPEG		
 		type = STREAM_AUDIO;
+#endif		
 	}
 
 	virtual ~CDemuxStreamAudio() {}

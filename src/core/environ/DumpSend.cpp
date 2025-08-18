@@ -24,6 +24,7 @@ static void ClearDumps(const std::string &dumpdir, std::vector<std::string> &all
 
 static std::map<std::string, tTVPMemoryStream*> _inmemFiles;
 
+#if 0
 struct zlib_inmem_func64 : public zlib_filefunc64_def {
 	static voidpf ZCALLBACK fopen64_file_func(voidpf opaque, const void* filename, int mode) {
 		tTVPMemoryStream *str = new tTVPMemoryStream;
@@ -93,6 +94,7 @@ static zlib_filefunc64_def* GetZlibIOFunc() {
 	static zlib_inmem_func64 func;
 	return &func;
 }
+#endif
 
 static std::string url_encode(const std::string &value) {
 	std::ostringstream escaped;

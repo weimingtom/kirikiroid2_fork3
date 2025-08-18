@@ -12,8 +12,18 @@
 ## For Xubuntu 25.04, desktop amd64, in VMWare 
 * See also upper, same as Xubuntu 20.04
 
+## For Fedora 41, x86_64, in VirtualBox
+* $ sudo yum install lftp make gcc g++ gedit
+* $ sudo yum install glew-devel freetype-devel libjpeg-devel glfw-devel opencv-devel libwebp-devel lz4-devel openal-devel SDL2-devel minizip-devel libarchive-devel libvorbis-devel opusfile-devel
+* $ make clean && make -j8 && make test
+* (Only for cmake) $ sudo yum install cmake gtk2-devel 
+* $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
+
 ## Bugs
-* Output wrong characters in console (make and cmake) for Xubuntu 25.04
+* Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS  
+* Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
+* No history file list, it displays empty list
+* Need remove libEGL.a link lib ?
 
 =========================================================
 
