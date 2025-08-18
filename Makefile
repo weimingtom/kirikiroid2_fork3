@@ -297,12 +297,12 @@ CPPFLAGS += -I./src/core/external/onig
 #CPPFLAGS += -I./src/core/external/opencv-2.4.13/modules/dynamicuda/include
 #CPPFLAGS += -I./src/core/external/opencv-2.4.13/modules/imgproc/include
 #CPPFLAGS += -I./src/core/external/opencv-2.4.13
-CPPFLAGS += -I./src/core/external/freetype-2.5.0.1/include
+#CPPFLAGS += -I./src/core/external/freetype-2.5.0.1/include
 
 #vorbis
-CPPFLAGS += -I./src/core/external/libvorbis-1.2.0/include/
-CPPFLAGS += -I./src/core/external/libogg-1.1.3/include
-CPPFLAGS += -I./src/core/external/libvorbis-1.2.0/lib
+#CPPFLAGS += -I./src/core/external/libvorbis-1.2.0/include/
+#CPPFLAGS += -I./src/core/external/libogg-1.1.3/include
+#CPPFLAGS += -I./src/core/external/libvorbis-1.2.0/lib
 
 # FIXME: src/core/extension, two extension.h
 # TODO: modify main.cpp	

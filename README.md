@@ -3,10 +3,17 @@
 
 ## For Xubuntu 20.04, desktop amd64, in VirtualBox  
 * $ sudo apt update
-* $ sudo apt install lftp gedit pkg-config make gcc g++ cmake
-* $ sudo apt install libglew-dev libfreetype-dev libglfw3-dev libsdl2-dev libvorbis-dev libwebp-dev libboost-locale-dev libopencv-dev liblz4-dev libopenal-dev libgtk2.0-dev libarchive-dev libopusfile-dev libminizip-dev libjpeg-dev
+* $ sudo apt install lftp gedit make gcc g++
+* $ sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
 * $ make clean && make -j8 && make test
+* (Only for cmake) $ sudo apt install cmake libgtk2.0-dev
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
+
+## For Xubuntu 25.04, desktop amd64, in VMWare 
+* See also upper, same as Xubuntu 20.04
+
+## Bugs
+* Output wrong characters in console (make and cmake) for Xubuntu 25.04
 
 =========================================================
 
