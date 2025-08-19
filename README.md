@@ -36,7 +36,7 @@
 * \# sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev libwebp-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
 * \# make clean && make -j8 && make test
 * (Only for cmake) \# sudo apt install cmake libgtk2.0-dev
-* \# mkdir build && cd build && cmake .. && make -j8 && ./bin/krkr2/krkr2 && cd ..
+* \# mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
 ## Bugs
 * Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
