@@ -20,6 +20,15 @@
 * (Only for cmake) $ sudo yum install cmake gtk2-devel 
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
+## For Arch Linux 2025.04.01, x86_64, in VirtualBox
+* For VirtualBox, change checkbox and combobox to enable Hyper-V, PAE/NX, Nested VT-x/AMD-V
+* $ sudo pacman -Sy
+* $ sudo pacman -S lftp gcc make unzip gedit
+* $ sudo pacman -S glew glfw opencv openal minizip opusfile
+* $ make clean && make -j8 && make test
+* (Only for cmake) $ sudo pacman -S cmake gtk2 
+* $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
+
 ## Bugs
 * Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
 * Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
