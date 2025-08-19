@@ -1,16 +1,17 @@
 # kirikiroid2_fork3
 [WIP] My third fork of kirikiroid2, based on ningshanwutuobang/Kirikiroid2
 
-## For Xubuntu 20.04, desktop amd64, in VirtualBox  
+## For Xubuntu 20.04, desktop amd64, in VirtualBox or VMWare  
 * $ sudo apt update
 * $ sudo apt install lftp gedit make gcc g++
-* $ sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
+* $ sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev libwebp-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
 * $ make clean && make -j8 && make test
 * (Only for cmake) $ sudo apt install cmake libgtk2.0-dev
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
 ## For Xubuntu 25.04, desktop amd64, in VMWare 
 * See also upper, same as Xubuntu 20.04
+* Need sudo apt install libwebp-dev
 
 ## For Fedora 41, x86_64, in VirtualBox
 * $ sudo yum install lftp make gcc g++ gedit
@@ -20,7 +21,7 @@
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
 ## Bugs
-* Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS  
+* Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
 * Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
 * No history file list, it displays empty list
 * Need remove libEGL.a link lib ?
