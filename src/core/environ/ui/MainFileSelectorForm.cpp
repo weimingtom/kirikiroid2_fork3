@@ -151,10 +151,14 @@ void TVPMainFileSelectorForm::bindBodyController(const NodeMap &allNodes) {
 	}
 }
 
+#if !defined(__MINGW32__)
 extern "C" void TVPGL_ASM_Test();
+#endif
 void TVPMainFileSelectorForm::show() {
+#if !defined(__MINGW32__)
 #ifdef _DEBUG
 	TVPGL_ASM_Test();
+#endif
 #endif
 	ListHistory(); // filter history data
 

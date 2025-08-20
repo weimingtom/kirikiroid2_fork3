@@ -10,6 +10,10 @@
 #include "ThreadIntf.h"
 #include "tvpgl.h"
 
+#if defined(__MINGW32__)
+#define M_LN2       0.693147180559945309417
+#endif
+
 #define _bswap(x) ((x&0xFF)<<24)|((x&0xFF00)<<8)|((x&0xFF0000)>>8)|(x>>24)
 namespace std {
 	float _fma_(float x, float y, float z) { return fmaf(x, y, z); }

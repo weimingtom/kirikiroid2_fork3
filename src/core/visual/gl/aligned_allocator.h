@@ -23,7 +23,11 @@ struct aligned_allocator : public std::allocator<T>
 	template <class U> aligned_allocator& operator=(const aligned_allocator<U, TAlign>&) throw()  {}
 	// allocate
 	pointer allocate(size_type c, const void* hint = 0) {
+#if !defined(__MINGW32__)		
 		return static_cast<pointer>( ::memalign( sizeof(T)*c, TAlign ) );
+#else
+        return static_cast<pointer>( _aligned_malloc( sizeof(T)*c, TAlign ) );
+#endif		
 	}
 	// deallocate
 	void deallocate(pointer p, size_type n) {

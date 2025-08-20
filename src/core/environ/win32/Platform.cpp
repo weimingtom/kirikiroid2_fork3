@@ -16,6 +16,9 @@
 #include "XP3ArchiveRepack.h"
 #include "RenderManager.h"
 #include <sys/utime.h>
+#if defined(__MINGW32__)
+#include <locale> // 'wstring_convert' in namespace 'std' does not name a template type
+#endif
 
 #pragma comment(lib,"psapi.lib")
 
@@ -77,7 +80,11 @@ extern "C" int usleep(unsigned long us) {
 std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 std::string TVPGetDefaultFileDir() {
 	wchar_t buf[MAX_PATH];
+#if !defined(__MINGW32__)	
 	_wgetcwd(buf, sizeof(buf) / sizeof(buf[0]));
+#else
+    GetCurrentDirectoryW(sizeof(buf) / sizeof(buf[0]), buf);
+#endif
 	wchar_t *p = buf;
 	while (*p) {
 		if (*p == '\\') *p = '/';
@@ -91,11 +98,19 @@ void TVPCheckAndSendDumps(const std::string &dumpdir, const std::string &package
 bool TVPCheckStartupArg() {
 	int argc;
 	wchar_t **argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+#if defined(__MINGW32__)
+    char16_t **argv_ = (char16_t **)argv;
+#endif	
 //	__wgetmainargs(&argc, &argv, &env, 0, &info);
 	TVPCheckAndSendDumps(TVPGetDefaultFileDir() + "/dumps", "win32-test", "test");
 	if (argc > 1) {
+#if defined(__MINGW32__)
+		if (TVPCheckExistentLocalFile(argv_[1])) {
+			if (TVPCheckArchive(argv_[1]) == 1) {
+#else 	
 		if (TVPCheckExistentLocalFile(argv[1])) {
-			if (TVPCheckArchive(argv[1]) == 1) {
+			if (TVPCheckArchive(argv[1]) == 1) {		
+#endif
 				TVPMainScene::GetInstance()->startupFrom(converter.to_bytes(argv[1]));
 				return true;
 			}
@@ -119,10 +134,19 @@ bool TVPCheckStartupArg() {
 			std::wstring str = argv[i];
 			size_t pos = str.find(L'=');
 			if (pos == str.npos) {
+#if defined(__MINGW32__) 
+				TVPSetCommandLine(argv_[i], "yes");
+#else			
 				TVPSetCommandLine(argv[i], "yes");
+#endif				
 			} else {
+#if defined(__MINGW32__) 
+				ttstr val = (const char16_t *)(str.c_str() + pos + 1);
+				TVPSetCommandLine((const char16_t *)(str.substr(0, pos).c_str()), val);
+#else
 				ttstr val = str.c_str() + pos + 1;
 				TVPSetCommandLine(str.substr(0, pos).c_str(), val);
+#endif				
 			}
 		}
 		if (bootable) {
@@ -138,11 +162,19 @@ int TVPShowSimpleMessageBox(const ttstr & text, const ttstr & caption, const std
 	// there has no implement under android
 	switch (vecButtons.size()) {
 	case 1:
+#if defined(__MINGW32__)
+		MessageBoxW(0, (const wchar_t *) text.c_str(), (const wchar_t *)caption.c_str(), /*MB_OK*/0);
+#else	
 		MessageBoxW(0, text.c_str(), caption.c_str(), /*MB_OK*/0);
+#endif
 		return 0;
 		break;
 	case 2:
+#if defined(__MINGW32__) 
+		switch (MessageBoxW(0, (const wchar_t *)text.c_str(), (const wchar_t *)caption.c_str(), /*MB_YESNO*/4)) {
+#else	
 		switch (MessageBoxW(0, text.c_str(), caption.c_str(), /*MB_YESNO*/4)) {
+#endif
 		case 6:
 			return 0;
 		default:
@@ -222,8 +254,11 @@ static bool _TVPCreateFolders(const ttstr &folder)
 
 	ttstr parent(p, i + 1);
 	if (!TVPCreateFolders(parent)) return false;
-
+#if defined(__MINGW32__) 
+	return !_wmkdir((const wchar_t *)folder.c_str());
+#else
 	return !_wmkdir(folder.c_str());
+#endif
 
 }
 //---------------------------------------------------------------------------
@@ -243,7 +278,13 @@ bool TVPCreateFolders(const ttstr &folder)
 }
 
 bool TVPWriteDataToFile(const ttstr &filepath, const void *data, unsigned int len) {
+
+#if defined(__MINGW32__) 
+	FILE* handle = _wfopen((const wchar_t *)filepath.c_str(), L"wb");
+#else
 	FILE* handle = _wfopen(filepath.c_str(), L"wb");
+#endif	
+	
 	if (handle) {
 		bool ret = fwrite(data, 1, len, handle) == len;
 		fclose(handle);
@@ -295,13 +336,21 @@ void TVPExitApplication(int code) {
 
 bool TVPDeleteFile(const std::string &filename)
 {
+#if defined(__MINGW32__) 
+	return _wunlink((const wchar_t *)ttstr(filename).c_str()) == 0;
+#else
 	return _wunlink(ttstr(filename).c_str()) == 0;
+#endif
 }
 
 bool TVPRenameFile(const std::string &from, const std::string &to)
 {
 #ifdef WIN32
+#if defined(__MINGW32__) 
+	tjs_int ret = _wrename((const wchar_t *)ttstr(from).c_str(), (const wchar_t *)ttstr(to).c_str());
+#else
 	tjs_int ret = _wrename(ttstr(from).c_str(), ttstr(to).c_str());
+#endif
 #else
 	tjs_int ret = rename(from.c_str(), to.c_str());
 #endif
@@ -325,7 +374,11 @@ void TVPPrintLog(const char *str) {
 
 bool TVP_stat(const tjs_char *name, tTVP_stat &s) {
 	struct _stat64 t;
+#if defined(__MINGW32__) 
+	bool ret = !_wstat64((const wchar_t *)name, &t);
+#else
 	bool ret = !_wstat64(name, &t);
+#endif
 	s.st_mode = t.st_mode;
 	s.st_size = t.st_size;
 	s.st_atime = t.st_atime;
@@ -344,5 +397,21 @@ void TVP_utime(const char *name, time_t modtime) {
 	utb.modtime = modtime;
 	utb.actime = modtime;
 	ttstr filename(name);
+#if defined(__MINGW32__) 
+	_wutime((const wchar_t *)filename.c_str(), &utb);
+#else
 	_wutime(filename.c_str(), &utb);
+#endif
 }
+
+//FIXME:added
+#if defined(__MINGW32__)
+int TVPShowSimpleInputBox(ttstr &text, const ttstr &caption, const ttstr &prompt, const std::vector<ttstr> &vecButtons) {
+	printf("windows platform simple input box not implement\n");
+	return -1;
+}
+
+void TVPSendToOtherApp(const std::string &filename) {}
+void TVPFetchSDCardPermission() {}
+//void TVPGL_ASM_Test() {}
+#endif

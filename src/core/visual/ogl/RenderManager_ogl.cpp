@@ -135,7 +135,7 @@ static void TVPInitGLExtensionInfo() {
 	IndividualConfigManager *cfgMgr = IndividualConfigManager::GetInstance();
 	for (const char *const *name = (&UsedGLExtInfo.NameBegin) + 1; *name; ++name) {
 		if (!cfgMgr->GetValue<int>(*name, 1)) {
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) && !defined(__MINGW32__)
 			sTVPGLExtensions.erase(*name);
 #endif
 		}
@@ -154,7 +154,7 @@ namespace GL { // independ from global gl functions
 #ifndef GLAPIENTRY
 #define GLAPIENTRY
 #endif
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 typedef PROC (WINAPI fGetProcAddress)(LPCSTR);
 #elif defined(TARGET_OS_IPHONE)
 typedef void* (fGetProcAddress)(const char *);
@@ -170,7 +170,7 @@ static fClearTexImage *glClearTexImage;
 typedef void (GLAPIENTRY fClearTexSubImage)(uint texture, int level, int xoffset, int yoffset, int zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * data);
 static fClearTexSubImage *glClearTexSubImage;
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 typedef void (GLAPIENTRY fGetTextureImage)(GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize, void *pixels);
 static fGetTextureImage *glGetTextureImage;
 #endif
@@ -195,7 +195,7 @@ bool TVPIsSupportTextureFormat(GLenum fmt) {
 }
 
 static void TVPInitGLExtensionFunc() {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 	GL::glGetProcAddress = wglGetProcAddress;
 #elif defined(EGLAPI)
 	GL::glGetProcAddress = (GL::fGetProcAddress*)eglGetProcAddress;
@@ -208,7 +208,7 @@ static void TVPInitGLExtensionFunc() {
 		TVPCheckGLExtension("GL_NV_shader_framebuffer_fetch");
 
 	if (GL::glGetProcAddress) {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 		GL::glGetTextureImage = (GL::fGetTextureImage*)GL::glGetProcAddress("glGetTextureImage");
 #endif
 		if (!GL::glCopyImageSubData && TVPCheckGLExtension(UsedGLExtInfo.GLEXT_EXT_copy_image))
@@ -2125,7 +2125,7 @@ const void * tTVPOGLTexture2D::GetScanLineForRead(tjs_uint l)
 	if (_scaleW == 1.f && _scaleH == 1.f) {
 		if (!PixelData) {
 			PixelData = new unsigned char[internalW * internalH * 4];
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 			if (GL::glGetTextureImage) {
 				GL::glGetTextureImage(texture, 0, GL_RGBA, GL_UNSIGNED_BYTE, internalH * internalW * 4, PixelData);
 				return &PixelData[l * internalW * 4];

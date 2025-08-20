@@ -21,7 +21,12 @@ extern "C" {
 //#include "libswscale/swscale.h"
 #endif
 };
+#if !defined(__MINGW32__)
 #include "opencv2/opencv.hpp"
+#else
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
+#endif
 #include "Application.h"
 #include "Platform.h"
 #include "ConfigManager/IndividualConfigManager.h"

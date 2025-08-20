@@ -2079,7 +2079,7 @@ int TVPLoadGraphic(iTVPBaseBitmap *dest, const ttstr &name, tjs_int32 keyidx,
     return ret;
 }
 //---------------------------------------------------------------------------
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MINGW32__)
 extern "C"
 __declspec(dllimport) int __stdcall WideCharToMultiByte(
 unsigned int CodePage,
@@ -2195,7 +2195,7 @@ private:
 #ifdef WIN32
 		char buf[16384] = { 0 };
 		ttstr msg = TJS_W("Touching Image: ") + item.main.filename;
-		WideCharToMultiByte(/*CP_ACP*/0, 0, msg.c_str(), -1, buf, sizeof(buf), nullptr, 0);
+		WideCharToMultiByte(/*CP_ACP*/0, 0, (const wchar_t*)msg.c_str(), -1, buf, sizeof(buf), nullptr, 0);
 		puts(buf);
 		//TVPAddLog(TJS_W("Touching Image: ") + item.main.filename);
 #endif

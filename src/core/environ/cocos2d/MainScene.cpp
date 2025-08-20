@@ -2341,7 +2341,7 @@ void TVPConsoleLog(const ttstr &l, bool important) {
 #ifdef _WIN32
 	//cocos2d::log("%s", utf8.c_str());
 	char buf[16384] = { 0 };
-	WideCharToMultiByte(CP_ACP, 0, l.c_str(), -1, buf, sizeof(buf), nullptr, FALSE);
+	WideCharToMultiByte(CP_ACP, 0, (const wchar_t*)l.c_str(), -1, buf, sizeof(buf), nullptr, FALSE);
 	puts(buf);
 #else
     cocos2d::log("%ls", l.c_str());

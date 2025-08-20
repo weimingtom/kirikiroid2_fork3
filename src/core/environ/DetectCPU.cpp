@@ -163,7 +163,9 @@ static void TVPDisableCPU(tjs_uint32 featurebit, const tjs_char *name)
 }
 
 #if defined(WIN32) || defined(__ANDROID__)
+#if !defined(__MINGW32__)
 #include <cpu-features.h>
+#endif
 #endif
 //---------------------------------------------------------------------------
 void TVPDetectCPU()
@@ -181,9 +183,11 @@ void TVPDetectCPU()
 #if defined(__arm64__) || defined(__aarch64__) || defined(__LP64__)
 		TVPCPUFeatures |= TVP_CPU_HAS_NEON; // aka. asimd
 #else
+#if !defined(__MINGW32__)
         if((android_getCpuFeatures() & ANDROID_CPU_ARM_FEATURE_NEON) != 0) {
             TVPCPUFeatures |= TVP_CPU_HAS_NEON;
         }
+#endif		
 #endif
     //}
 #endif
