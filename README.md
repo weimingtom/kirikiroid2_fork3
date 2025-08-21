@@ -59,7 +59,7 @@
 * Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
 * No history file list, it displays empty list
 * Need remove libEGL.a link lib ?
-* Msys2 building is failed
+* (TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
 
 =========================================================
 
