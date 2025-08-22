@@ -195,6 +195,9 @@ extern "C" int TVPShowSimpleMessageBox(const char *pszText, const char *pszTitle
 
 std::vector<std::string> TVPGetDriverPath() {
 	std::vector<std::string> ret;
+#if defined(__MINGW32__)	
+printf("TVPGetDriverPath: begin\n");
+#endif
 	char drv[4] = { 'C', ':', '/', 0 };
 	for (char c = 'C'; c <= 'Z'; ++c) {
 		drv[0] = c;
@@ -202,6 +205,9 @@ std::vector<std::string> TVPGetDriverPath() {
 		case DRIVE_REMOVABLE:
 		case DRIVE_FIXED:
 		case DRIVE_REMOTE:
+#if defined(__MINGW32__)
+printf("TVPGetDriverPath: %s\n", drv);
+#endif
 			ret.emplace_back(drv);
 			break;
 		}
@@ -375,7 +381,24 @@ void TVPPrintLog(const char *str) {
 bool TVP_stat(const tjs_char *name, tTVP_stat &s) {
 	struct _stat64 t;
 #if defined(__MINGW32__) 
+#if 0
+	//no / replace	
 	bool ret = !_wstat64((const wchar_t *)name, &t);
+	if (!ret) {
+wprintf(L"TVP_stat failed, %S\n", (const wchar_t *)name);
+		perror( "_wstat64 Problem getting information" );
+	}
+#else  
+	//process / replace
+	ttstr wstr{ name };
+	wstr.Replace(ttstr{"/"}, ttstr{"\\"});
+    bool ret = !_wstat64((const wchar_t*)wstr.c_str(), &t);
+	if (!ret) {
+wprintf(L"TVP_stat failed, %S\n", (const wchar_t*)wstr.c_str());
+		perror( "_wstat64 Problem getting information" );
+	}
+#endif	
+	
 #else
 	bool ret = !_wstat64(name, &t);
 #endif

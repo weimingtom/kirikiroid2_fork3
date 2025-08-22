@@ -38,7 +38,7 @@
 * (Only for cmake) \# sudo apt install cmake libgtk2.0-dev
 * \# mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
-## (TODO, inavailable, building failed) For msys2
+## For msys2
 * Check if install to c:/msys64, otherwise modify it in Makefile.msys2
 * $ pacman -Sy
 * $ pacman -S mingw-w64-x86_64-libpng
@@ -51,15 +51,17 @@
 * $ pacman -S mingw-w64-x86_64-opencv
 * $ pacman -S mingw-w64-x86_64-minizip
 * $ mingw32-make.exe -f Makefile.msys2 clean
-* (Failed) $ mingw32-make.exe -f Makefile.msys2 -j8
-* (Failed) $ mingw32-make.exe -f Makefile.msys2 test
+* $ mingw32-make.exe -f Makefile.msys2 -j8
+* $ mingw32-make.exe -f Makefile.msys2 test
+* $ ./kirikiroid2.exe
 
 ## Bugs
 * Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
 * Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
 * No history file list, it displays empty list
 * Need remove libEGL.a link lib ?
-* (TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
+* (done)(TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
+* Running, click to show bottom bar, click first: menu, menu not shown  
 
 =========================================================
 
