@@ -17,7 +17,8 @@
 * See also upper, same as Xubuntu 20.04
 * Need sudo apt install libwebp-dev
 * Sound slow in VMware
-* When click buttom bar close button, SDL2 popup subwindow blinks  
+* When click buttom bar close button, SDL2 popup subwindow blinks
+* Ubuntu 24.04 is unable to used to build it because 'sudo apt install libfreetype-dev' failed, reason is unknown.  
 
 ## For Fedora 41, x86_64, in VirtualBox 7.1.4  
 * $ sudo yum install lftp make gcc g++ gedit
