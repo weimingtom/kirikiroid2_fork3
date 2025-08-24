@@ -1,7 +1,7 @@
 # kirikiroid2_fork3
 [WIP] My third fork of kirikiroid2, based on ningshanwutuobang/Kirikiroid2
 
-## For Xubuntu 20.04, desktop amd64, in VirtualBox or VMWare  
+## For Xubuntu 20.04, desktop amd64, in VirtualBox 7.1.4 or VMware 15.5 
 * $ sudo apt update
 * $ sudo apt install lftp gedit make gcc g++
 * $ sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev libwebp-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
@@ -9,18 +9,24 @@
 * (Only for cmake) $ sudo apt install cmake libgtk2.0-dev
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
-## For Xubuntu 25.04, desktop amd64, in VMWare 
+## For Xubuntu 25.04, desktop amd64, in VMware 15.5 
 * See also upper, same as Xubuntu 20.04
 * Need sudo apt install libwebp-dev
 
-## For Fedora 41, x86_64, in VirtualBox
+## For Ubuntu 25.04, desktop amd64, in VMware 15.5 
+* See also upper, same as Xubuntu 20.04
+* Need sudo apt install libwebp-dev
+* Sound slow in VMware
+* When click buttom bar close button, SDL2 popup subwindow blinks  
+
+## For Fedora 41, x86_64, in VirtualBox 7.1.4  
 * $ sudo yum install lftp make gcc g++ gedit
 * $ sudo yum install glew-devel freetype-devel libjpeg-devel glfw-devel opencv-devel libwebp-devel lz4-devel openal-devel SDL2-devel minizip-devel libarchive-devel libvorbis-devel opusfile-devel
 * $ make clean && make -j8 && make test
 * (Only for cmake) $ sudo yum install cmake gtk2-devel 
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
-## For Arch Linux 2025.04.01, x86_64, in VirtualBox
+## For Arch Linux 2025.04.01, x86_64, in VirtualBox 7.1.4  
 * For VirtualBox, change checkbox and combobox to enable Hyper-V, PAE/NX, Nested VT-x/AMD-V
 * $ sudo pacman -Sy
 * $ sudo pacman -S lftp gcc make unzip gedit
@@ -29,7 +35,7 @@
 * (Only for cmake) $ sudo pacman -S cmake gtk2 
 * $ mkdir build && cd build && cmake .. && make -j8 && ./bin/MyGame/MyGame && cd ..
 
-## For Debian 12.10.0, amd64, in VirtualBox
+## For Debian 12.10.0, amd64, in VirtualBox 7.1.4  
 * Need to login with root user
 * \# sudo apt update
 * \# sudo apt install lftp gedit make gcc g++ 
@@ -54,6 +60,14 @@
 * $ mingw32-make.exe -f Makefile.msys2 -j8
 * $ mingw32-make.exe -f Makefile.msys2 test
 * $ ./kirikiroid2.exe
+
+## For Raspberry Pi OS 2023-05-03 Raspios Bullseye (Debian 11), arm32 (armhf), in Raspberry Pi 4B
+* $ sudo apt update
+* $ sudo apt install lftp gedit pkg-config make gcc g++ cmake
+* $ sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev libwebp-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
+* $ make clean && make -j4 && make test
+* (Only for cmake) $ sudo apt install cmake libgtk2.0-dev
+* $ mkdir build && cd build && cmake .. && make -j4 && ./bin/MyGame/MyGame && cd ..
 
 ## Bugs
 * Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
