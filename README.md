@@ -63,7 +63,7 @@
 
 ## For Raspberry Pi OS 2023-05-03 Raspios Bullseye (Debian 11), arm32 (armhf), in Raspberry Pi 4B
 * $ sudo apt update
-* $ sudo apt install lftp gedit pkg-config make gcc g++ cmake
+* $ sudo apt install lftp gedit make gcc g++ cmake
 * $ sudo apt install libglew-dev libfreetype-dev libjpeg-dev libglfw3-dev libopencv-dev libwebp-dev liblz4-dev libopenal-dev libsdl2-dev libminizip-dev libarchive-dev libvorbis-dev libopusfile-dev
 * $ make clean && make -j4 && make test
 * (Only for cmake) $ sudo apt install cmake libgtk2.0-dev
