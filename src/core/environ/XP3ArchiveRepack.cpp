@@ -220,9 +220,9 @@ XP3ArchiveRepackAsync::XP3ArchiveRepackAsync()
 {
 	TVPDetectCPU();
 
-#if  !defined(__i386__) && !defined(__x86_64__)
-	TVPGL_ASM_Init();
-#endif
+//#if  !defined(__i386__) && !defined(__x86_64__)
+//	TVPGL_ASM_Init();
+//#endif
 }
 
 XP3ArchiveRepackAsync::~XP3ArchiveRepackAsync() {

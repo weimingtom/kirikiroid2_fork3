@@ -124,26 +124,27 @@ tTJSBinaryStream * TJS_INTF_METHOD tTVPFileMedia::Open(const ttstr & name, tjs_u
 }
 
 void TVPListDir(const std::string &folder, std::function<void(const std::string&, int)> cb) {
-#if defined(__MINGW32__)
+#if 1 //defined(__MINGW32__)
 	fprintf(stderr, "%s\n", "==================>TVPListDir");
 #endif
 
 	DIR *dirp;
 	struct dirent *direntp;
 	tTVP_stat stat_buf;
-#if defined(__MINGW32__)	
+#if 1
 printf("==================>TVPListDir,opendir>>>> %s\n", folder.c_str());
+#endif
+#if defined(__MINGW32__)	
 	//if ((dirp = opendir(folder.c_str()))) //mingw bug ? all windows bug ? not sure, need add "\\"
 	if((dirp = opendir((folder + "\\").c_str())))
 #else
-	//if ((dirp = opendir(folder.c_str())))
-	if((dirp = opendir((folder + "\\").c_str())))
+	if ((dirp = opendir(folder.c_str())))
 #endif	
 	{
 		while ((direntp = readdir(dirp)) != NULL)
 		{
 			std::string fullpath = folder + "/" + direntp->d_name;
-#if defined(__MINGW32__)
+#if 1 //defined(__MINGW32__)
 printf("==================>TVPListDir,while, %s, %s\n", fullpath.c_str(), folder.c_str());
 #endif			
 			if (!TVP_stat(fullpath.c_str(), stat_buf))
