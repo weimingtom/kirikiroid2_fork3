@@ -77,6 +77,7 @@
 * Need remove libEGL.a link lib ?
 * (done)(TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
 * Running, click to show bottom bar, click first: menu, menu not shown  
+* (TODO) Remove console.bat NDK_MODULE_PATH 
 
 =========================================================
 
