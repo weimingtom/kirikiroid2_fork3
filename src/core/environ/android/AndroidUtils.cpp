@@ -3,7 +3,9 @@
 #else
 
 #include "AndroidUtils.h"
+#if !MY_USE_MINLIB
 #include "minizip/unzip.h"
+#endif
 #include "zlib.h"
 #include <map>
 #include <string>
@@ -198,6 +200,7 @@ static std::string GetPackageName() {
 	return JniHelper::jstring2string((jstring)methodInfo.env->CallObjectMethod(sInstance, methodInfo.methodID));
 }
 
+#if !MY_USE_MINLIB
 // from unzip.cpp
 #define FLAG_UTF8 (1<<11)
 extern zlib_filefunc64_def TVPZlibFileFunc;
@@ -262,6 +265,8 @@ public:
 private:
 	unzFile zipFile;
 };
+#endif
+
 
 std::string TVPGetDeviceLanguage() {
 	// use pure jni to avoid java code

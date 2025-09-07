@@ -169,8 +169,11 @@ void pvmp3_alias_reduction(int32 *input_buffer,         /* Ptr to spec values of
 
     int32 i, j;
 
+#if !MY_USE_MINLIB	
     *used_freq_lines = fxp_mul32_Q32(*used_freq_lines << 16, (int32)(0x7FFFFFFF / (float)18 - 1.0f)) >> 15;
-
+#else
+    *used_freq_lines = fxp_mul32_Q32(*used_freq_lines << 16, (int32)((float)0x7FFFFFFF / (float)18 - 1.0f)) >> 15;
+#endif
 
     if (gr_info->window_switching_flag &&  gr_info->block_type == 2)
     {

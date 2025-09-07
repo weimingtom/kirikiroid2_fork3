@@ -9,8 +9,10 @@
 #include "SysInitIntf.h"
 #include "ConfigManager/LocaleConfigManager.h"
 #include "StorageImpl.h"
+#if !MY_USE_MINLIB
 #include "minizip/ioapi.h"
 #include "minizip/zip.h"
+#endif
 #include <sstream>
 #include <iomanip>
 #include <condition_variable>

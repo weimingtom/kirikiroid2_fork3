@@ -1,5 +1,5 @@
 #include "LocaleConfigManager.h"
-#include "CCFileUtils.h"
+#include "platform/CCFileUtils.h" //if build for android, need modify it to platform/xxxx.h //#include "CCFileUtils.h"
 #include "GlobalConfigManager.h"
 #include "tinyxml2/tinyxml2.h"
 #include "ui/UIText.h"

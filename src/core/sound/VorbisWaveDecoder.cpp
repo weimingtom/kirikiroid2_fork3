@@ -279,7 +279,8 @@ bool VorbisWaveDecoder::SetStream( const ttstr & url )
     return true;
 }
 
-#include "opusfile.h"
+#if !MY_USE_MINLIB
+#include <opus/opusfile.h>
 
 class OpusWaveDecoder : public tTVPWaveDecoder // decoder interface
 {
@@ -461,3 +462,4 @@ tTVPWaveDecoder * OpusWaveDecoderCreator::Create(const ttstr & storagename, cons
     }
     return decoder;
 }
+#endif

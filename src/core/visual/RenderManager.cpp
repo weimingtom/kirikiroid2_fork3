@@ -21,7 +21,7 @@ extern "C" {
 //#include "libswscale/swscale.h"
 #endif
 };
-#if !defined(__MINGW32__)
+#if !MY_USE_MINLIB && !defined(__MINGW32__)
 #include "opencv2/opencv.hpp"
 #else
 #include "opencv2/core.hpp"
@@ -33,8 +33,9 @@ extern "C" {
 #include "xxhash/xxhash.h"
 #include "tjsHashSearch.h"
 #include "EventIntf.h"
+#if !MY_USE_MINLIB
 #include "lz4.h"
-
+#endif
 #ifdef _MSC_VER
 #pragma comment(lib,"opencv_ts300d.lib")
 // #pragma comment(lib,"ippicvmt.lib")
@@ -473,7 +474,7 @@ public:
 		return origTex;
 	}
 };
-
+#if !MY_USE_MINLIB
 class tTVPSoftwareTexture2D_half : public tTVPSoftwareTexture2D_compress {
 	std::vector<const tjs_uint8*> _scanline;
 	std::vector<tjs_uint8*> _scanlineData;
@@ -780,6 +781,7 @@ public:
 		return blk.Height;
 	}
 };
+#endif
 
 class tTVPSoftwareTexture2D : public tTVPSoftwareTexture2D_static {
 	tTVPSoftwareTexture2D(tTVPBitmap *bmp)
@@ -2641,10 +2643,18 @@ public:
 		, _drawCount(0)
 	{
 		_createStaticTexture2D = tTVPSoftwareTexture2D::Create;
+#if !MY_USE_MINLIB		
 		std::string compTexMethod = IndividualConfigManager::GetInstance()->GetValue<std::string>("software_compress_tex", "none");
 		if (compTexMethod == "halfline") _createStaticTexture2D = tTVPSoftwareTexture2D_half::Create;
 		else if (compTexMethod == "lz4") _createStaticTexture2D = tTVPSoftwareTexture2D_lz4::Create;
 		else if (compTexMethod == "lz4+tlg5") _createStaticTexture2D = tTVPSoftwareTexture2D_lz4_tlg5::Create;
+#else
+#if defined(_MSC_VER)
+		OutputDebugStringA("====================> _createStaticTexture2D not set \n");
+#else
+		CCLOG("====================> _createStaticTexture2D not set ");
+#endif
+#endif
 
 		Register_1();
 		Register_2();

@@ -68,9 +68,11 @@ static void TVPLoadGraphicRouter(void* formatdata, void *callbackdata, tTVPGraph
 // 		if (!memcmp(header, "BPG", 3)) {
 // 			return CALL_LOAD_FUNC(TVPLoadBPG);
 // 		}
+#if !MY_USE_MINLIB
 		if (!memcmp(header, "RIFF", 4) && !memcmp(header + 8, "WEBPVP8", 7)) {
 			return CALL_LOAD_FUNC(TVPLoadWEBP);
 		}
+#endif
 // 		if (!memcmp(header, "\x49\x49\xbc\x01", 4)) {
 // 			return CALL_LOAD_FUNC(TVPLoadJXR);
 // 		}
@@ -104,9 +106,11 @@ static void TVPLoadHeaderRouter(void* formatdata, tTJSBinaryStream *src, iTJSDis
 // 		if (!memcmp(header, "BPG", 3)) {
 // 			return CALL_LOAD_FUNC(TVPLoadHeaderBPG);
 // 		}
+#if !MY_USE_MINLIB
 		if (!memcmp(header, "RIFF", 4) && !memcmp(header + 8, "WEBPVP8", 7)) {
 			return CALL_LOAD_FUNC(TVPLoadHeaderWEBP);
 		}
+#endif
 // 		if (!memcmp(header, "\x49\x49\xbc\x01", 4)) {
 // 			return CALL_LOAD_FUNC(TVPLoadHeaderJXR);
 // 		}

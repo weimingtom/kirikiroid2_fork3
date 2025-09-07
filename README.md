@@ -78,6 +78,7 @@
 * (done)(TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
 * Running, click to show bottom bar, click first: menu, menu not shown  
 * (TODO) Remove console.bat NDK_MODULE_PATH 
+* (TODO) Modify kirikiroid2_fork4_v1.7z yuri version  
 
 =========================================================
 

@@ -644,7 +644,7 @@ LOCAL_SRC_FILES += ../src/core/environ/ui/InGameMenuForm.cpp
 LOCAL_SRC_FILES += ../src/core/environ/ui/MainFileSelectorForm.cpp
 LOCAL_SRC_FILES += ../src/core/environ/ui/MessageBox.cpp
 LOCAL_SRC_FILES += ../src/core/environ/ui/PreferenceForm.cpp
-LOCAL_SRC_FILES += ../src/core/environ/ui/SelectListForm.cpp
+LOCAL_SRC_FILES += ../src/core/environ/ui/SeletListForm.cpp
 LOCAL_SRC_FILES += ../src/core/environ/ui/TipsHelpForm.cpp
 
 LOCAL_SRC_FILES += ../src/core/environ/ui/extension/ActionExtension.cpp
@@ -695,7 +695,7 @@ LOCAL_SRC_FILES += ../src/plugins/win32dialog.cpp
 LOCAL_SRC_FILES += ../src/plugins/wutcwf.cpp
 LOCAL_SRC_FILES += ../src/plugins/xp3filter.cpp
 
-LOCAL_SRC_FILES += ../Classes/AppDelegate_ori.cpp
+LOCAL_SRC_FILES += ../Classes/AppDelegate.cpp
 LOCAL_SRC_FILES += ../Classes/HelloWorldScene.cpp
 #see LOCAL_SRC_FILES += ../src/core/environ/cocos2d/AppDelegate.cpp
 

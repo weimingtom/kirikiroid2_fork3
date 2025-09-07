@@ -511,6 +511,7 @@ public:
 	}
 };
 
+#if !MY_USE_MINLIB
 class tTVPUnpackArchiveImplWrap : public iTVPUnpackArchiveImpl {
 	tTVPArchive *pTVPArc = nullptr;
 	tjs_int64 _totalSize = 0;
@@ -837,7 +838,7 @@ public:
 };
 
 #endif //MY_USE_LIB7ZIP
-
+#endif //!MY_USE_MINLIB
 #if MY_USE_UNRARSRC
 
 #include "unrar/raros.hpp"
@@ -1006,6 +1007,7 @@ int tTVPUnpackArchive::Prepare(const std::string &path, const std::string &_outp
 		Close();
 		return -2;
 #endif
+#if !MY_USE_MINLIB	
 	} else if (!memcmp(signature, "PK", 2)) {
 		_impl = new tTVPUnpackArchiveImplLibArchive();
 	} else if (!memcmp(signature, "7z", 2)) {
@@ -1019,6 +1021,12 @@ int tTVPUnpackArchive::Prepare(const std::string &path, const std::string &_outp
 			_impl = new tTVPUnpackArchiveImplLibArchive();
 		}
 	}
+#else
+    } else {
+        Close();
+        return -2;
+	}
+#endif		
 	_impl->SetCallback(this);
 	if (!_impl->Open(path)) {
 		Close();
