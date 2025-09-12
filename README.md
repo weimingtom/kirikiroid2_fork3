@@ -2,6 +2,25 @@
 [WIP] My third fork of kirikiroid2, based on ningshanwutuobang/Kirikiroid2.    
 **No windowEx.dll support** (No System.getMonitorInfo implementation), just able to run a very simple demo _testdata/data.xp3   
 
+## Bugs
+* Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
+* Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
+* No history file list, it displays empty list
+* Need remove libEGL.a link lib ?
+* (done)(TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
+* Running, click to show bottom bar, click first: menu, menu not shown  
+* (TODO) Remove console.bat NDK_MODULE_PATH 
+* (TODO) Modify kirikiroid2_fork4_v1.7z yuri version  
+* class Cocos2dxActivity extends SDLActivity, not Activity 
+* KR2Activity.java: //        System.loadLibrary("openal");
+* KR2Activity.java: //        System.loadLibrary("hidapi");
+* Cocos2dxActivity.java: remove Cocos2dxReflectionHelper.<Void>invokeInstanceMethod, for stopping android window being moved up
+* AndroidManifest.xml: adding <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23"
+* Kirikiroid2.java: adding checkSelfPermission. But it is also done in KR2Activity, be careful about requestCode.   
+* If installing adt version and androidstudio version at same time, the storage permission checking will be passed.  
+* Test and build 64bit Android so file
+* Android studio apk version not sync
+
 ## For Xubuntu 20.04, desktop amd64, in VirtualBox 7.1.4 or VMware 15.5 
 * $ sudo apt update
 * $ sudo apt install lftp gedit make gcc g++
@@ -71,22 +90,17 @@
 * (Only for cmake) $ sudo apt install cmake libgtk2.0-dev
 * $ mkdir build && cd build && cmake .. && make -j4 && ./bin/MyGame/MyGame && cd ..
 
-## Bugs
-* Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
-* Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
-* No history file list, it displays empty list
-* Need remove libEGL.a link lib ?
-* (done)(TODO) Msys2 building is failed, it can run but can't startup a .xp3 game pack
-* Running, click to show bottom bar, click first: menu, menu not shown  
-* (TODO) Remove console.bat NDK_MODULE_PATH 
-* (TODO) Modify kirikiroid2_fork4_v1.7z yuri version  
-* class Cocos2dxActivity extends SDLActivity, not Activity 
-* KR2Activity.java: //        System.loadLibrary("openal");
-* KR2Activity.java: //        System.loadLibrary("hidapi");
-* Cocos2dxActivity.java: remove Cocos2dxReflectionHelper.<Void>invokeInstanceMethod, for stopping android window being moved up
-* AndroidManifest.xml: adding <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23"
-* Kirikiroid2.java: adding checkSelfPermission. But it is also done in KR2Activity, be careful about requestCode.   
-* If installing adt version and androidstudio version at same time, the storage permission checking will be passed.  
+## For Android NDK r25, armeabi-v7a, in Android 32bit
+* Double click console.bat
+* set PATH=D:\home\soft\android_studio_sdk\ndk\25.2.9519653;%PATH%
+* set NDK_MODULE_PATH=%CD%\cocos;%CD%\external;%CD%\extensions;%CD%
+* ndk-build -j8
+* copy libs\armeabi-v7a\libSDL2.so project_android_studio\app\libs\armeabi-v7a\libSDL2.so
+* copy libs\armeabi-v7a\libMyGame.so project_android_studio\app\libs\armeabi-v7a\libMyGame.so
+* Open project_android_studio with Android Studio
+* (optional, not recommended) copy libs\armeabi-v7a\libSDL2.so project_android_adt\libs\armeabi-v7a\libSDL2.so
+* (optional, not recommended) copy libs\armeabi-v7a\libMyGame.so project_android_adt\libs\armeabi-v7a\libMyGame.so
+* (optional, not recommended) Import project_android_adt with Android ADT
 
 =========================================================
 
