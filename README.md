@@ -80,6 +80,13 @@
 * Running, click to show bottom bar, click first: menu, menu not shown  
 * (TODO) Remove console.bat NDK_MODULE_PATH 
 * (TODO) Modify kirikiroid2_fork4_v1.7z yuri version  
+* class Cocos2dxActivity extends SDLActivity, not Activity 
+* KR2Activity.java: //        System.loadLibrary("openal");
+* KR2Activity.java: //        System.loadLibrary("hidapi");
+* Cocos2dxActivity.java: remove Cocos2dxReflectionHelper.<Void>invokeInstanceMethod, for stopping android window being moved up
+* AndroidManifest.xml: adding <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23"
+* Kirikiroid2.java: adding checkSelfPermission. But it is also done in KR2Activity, be careful about requestCode.   
+* If installing adt version and androidstudio version at same time, the storage permission checking will be passed.  
 
 =========================================================
 

@@ -13,16 +13,16 @@
 #include <string>
 #include <condition_variable>
 #include <mutex>
-#include "client/linux/handler/exception_handler.h"
-#include "client/linux/handler/minidump_descriptor.h"
+//#include "client/linux/handler/exception_handler.h"
+//#include "client/linux/handler/minidump_descriptor.h"
 
 //std::string Android_GetDumpStoragePath();
 
-static bool __DumpCallback(const google_breakpad::MinidumpDescriptor& descriptor,
-	void* context, bool succeeded)
-{
-	return succeeded;
-}
+//static bool __DumpCallback(const google_breakpad::MinidumpDescriptor& descriptor,
+//	void* context, bool succeeded)
+//{
+//	return succeeded;
+//}
 
 extern bool TVPSystemUninitCalled;
 
@@ -38,15 +38,23 @@ static bool __DumpFilter(void *data) {
 //		NULL, true, -1);
 //}
 
+#if 0
 void cocos_android_app_init (JNIEnv* env) { // for cocos3.10+
 //	__InitAndroidDump();
 	static TVPAppDelegate *pAppDelegate = new TVPAppDelegate();
 }
-
 void cocos_android_app_init(JNIEnv* env, jobject thiz) {
 //	__InitAndroidDump();
 	static TVPAppDelegate *pAppDelegate = new TVPAppDelegate();
 }
+#else
+//see void cocos_android_app_init (JNIEnv* env);
+//ld: error: duplicate symbol: cocos_android_app_init(_JNIEnv*)
+//>>> defined at main.cpp:70 (jni/main.cpp:70)
+//>>>            ./obj/local/armeabi-v7a/objs/MyGame_shared/main.o:(cocos_android_app_init(_JNIEnv*))
+//>>> defined at SDL_android_main.cpp:41 (jni/../proj.android/app/jni/src/SDL_android_main.cpp:41)
+//>>>            ./obj/local/armeabi-v7a/objs/MyGame_shared/__/proj.android/app/jni/src/SDL_android_main.o:(.text._Z22cocos_android_app_initP7_JNIEnv+0x1)	
+#endif
 
 namespace kr2android {
 	extern std::condition_variable MessageBoxCond;
@@ -60,9 +68,9 @@ extern "C" {
 	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_initDump(JNIEnv* env, jclass cls, jstring path) {
 		const char* pszPath = env->GetStringUTFChars(path, NULL);
 		if (pszPath && *pszPath) {
-			static google_breakpad::MinidumpDescriptor descriptor(pszPath);
-			static google_breakpad::ExceptionHandler eh(descriptor, __DumpFilter, __DumpCallback,
-				NULL, true, -1);
+//			static google_breakpad::MinidumpDescriptor descriptor(pszPath);
+//			static google_breakpad::ExceptionHandler eh(descriptor, __DumpFilter, __DumpCallback,
+//				NULL, true, -1);
 		}
 		env->ReleaseStringUTFChars(path, pszPath);
 	}

@@ -409,9 +409,9 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := cpp_empty_test_shared
+LOCAL_MODULE := libMyGame_shared
 
-LOCAL_MODULE_FILENAME := libcpp_empty_test
+LOCAL_MODULE_FILENAME := libMyGame
 
 LOCAL_SRC_FILES := main.cpp
 
@@ -697,6 +697,7 @@ LOCAL_SRC_FILES += ../src/plugins/xp3filter.cpp
 
 LOCAL_SRC_FILES += ../Classes/AppDelegate.cpp
 LOCAL_SRC_FILES += ../Classes/HelloWorldScene.cpp
+LOCAL_SRC_FILES += ../proj.android/app/jni/src/SDL_android_main.cpp
 #see LOCAL_SRC_FILES += ../src/core/environ/cocos2d/AppDelegate.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../Classes \
