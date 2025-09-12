@@ -1,6 +1,6 @@
 # kirikiroid2_fork3
 [WIP] My third fork of kirikiroid2, based on ningshanwutuobang/Kirikiroid2.    
-**No windowEx.dll support** (No System.getMonitorInfo implementation), just be able to run a very simple demo _testdata/data.xp3   
+**No windowEx.dll support** (No System.getMonitorInfo implementation), just able to run a very simple demo _testdata/data.xp3   
 
 ## For Xubuntu 20.04, desktop amd64, in VirtualBox 7.1.4 or VMware 15.5 
 * $ sudo apt update
