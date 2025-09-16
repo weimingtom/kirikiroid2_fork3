@@ -194,7 +194,10 @@ target_include_directories(
     PUBLIC /usr/lib64/gtk-2.0/include    
 #FIXME:Raspberry Pi 4, FIXME: two places
     PUBLIC /usr/lib/arm-linux-gnueabihf/glib-2.0/include
-    PUBLIC /usr/lib/arm-linux-gnueabihf/gtk-2.0/include    
+    PUBLIC /usr/lib/arm-linux-gnueabihf/gtk-2.0/include  
+#FIXME:VisionFive2, FIXME: two places    
+    PUBLIC /usr/lib/riscv64-linux-gnu/glib-2.0/include  
+    PUBLIC /usr/lib/riscv64-linux-gnu/gtk-2.0/include  
 )
     
 target_compile_definitions(krkr 
