@@ -1335,6 +1335,9 @@ union arg
 	void *p;
 };
 
+//see https://blog.csdn.net/whatday/article/details/100055076
+//for Linux, va_list structure in 32bit and 64bit are not same
+#if 0
 static void pop_arg(union arg *arg, int type, va_list ap)
 {
 	/* Give the compiler a hint for optimizing the switch. */
@@ -1364,6 +1367,33 @@ static void pop_arg(union arg *arg, int type, va_list ap)
 	break; case LDBL:	arg->f = va_arg(ap, long double);
 	}
 }
+#else
+#define pop_arg(arg, type, ap) \
+do { \
+	if ((unsigned)type > MAXSTATE) break;  \
+	if (type == PTR) {	(arg)->p = va_arg(ap, void *); \
+	} else if (type == INT) {	(arg)->i = va_arg(ap, int); \
+	} else if (type == UINT) {	(arg)->i = va_arg(ap, unsigned int); \
+	} else if (type == LONG) {	(arg)->i = va_arg(ap, long); \
+	} else if (type == ULONG) {	(arg)->i = va_arg(ap, unsigned long); \
+	} else if (type == ULLONG) {	(arg)->i = va_arg(ap, unsigned long long); \
+	} else if (type == SHORT) {	(arg)->i = (short)va_arg(ap, int); \
+	} else if (type == USHORT) {	(arg)->i = (unsigned short)va_arg(ap, int); \
+	} else if (type == CHAR) {	(arg)->i = (signed char)va_arg(ap, int); \
+	} else if (type == UCHAR) {	(arg)->i = (unsigned char)va_arg(ap, int); \
+	} else if (type == LLONG) {	(arg)->i = va_arg(ap, long long); \
+	} else if (type == SIZET) {	(arg)->i = va_arg(ap, size_t); \
+	} else if (type == IMAX) {	(arg)->i = va_arg(ap, intmax_t); \
+	} else if (type == UMAX) {	(arg)->i = va_arg(ap, uintmax_t); \
+	} else if (type == PDIFF) {	(arg)->i = va_arg(ap, ptrdiff_t); \
+	} else if (type == UIPTR) {	(arg)->i = (uintptr_t)va_arg(ap, void *); \
+	} else if (type == DBL) {	(arg)->f = va_arg(ap, double); \
+	} else if (type == LDBL) {	(arg)->f = va_arg(ap, long double); \
+	} \
+}while(0)
+
+
+#endif
 
 struct _tFILE
 {
