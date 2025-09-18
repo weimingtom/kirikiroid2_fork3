@@ -138,7 +138,11 @@ void TVPBaseFileSelectorForm::ListDir(std::string path) {
 			split_path.second.pop_back();
 		}
 #endif
-		_title->setTitleText(split_path.second);
+    	if (path == "/") {
+    		_title->setTitleText("/"); //FIXME: don't display empty title button //FIXME: not test / in msys2
+        } else {
+        	_title->setTitleText(split_path.second);
+        }
 
 		Size dispSize = _title->getTitleRenderer()->getContentSize();
 		Size realSize = _title->getContentSize();
