@@ -15,11 +15,12 @@
 * KR2Activity.java: //        System.loadLibrary("openal");
 * KR2Activity.java: //        System.loadLibrary("hidapi");
 * Cocos2dxActivity.java: remove Cocos2dxReflectionHelper.<Void>invokeInstanceMethod, for stopping android window being moved up
-* AndroidManifest.xml: adding <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23"
+* AndroidManifest.xml: adding uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23"
 * Kirikiroid2.java: adding checkSelfPermission. But it is also done in KR2Activity, be careful about requestCode.   
 * If installing adt version and androidstudio version at same time, the storage permission checking will be passed.  
 * Test and build 64bit Android so file
 * Android studio apk version not sync
+* Kirikiri2 log output is none
 
 ## For Xubuntu 20.04, desktop amd64, in VirtualBox 7.1.4 or VMware 15.5 
 * $ sudo apt update
