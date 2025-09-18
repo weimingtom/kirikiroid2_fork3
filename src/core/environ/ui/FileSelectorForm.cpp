@@ -47,6 +47,9 @@ static bool IsPathExist(const std::string &path) {
 std::pair<std::string, std::string> TVPBaseFileSelectorForm::PathSplit(const std::string &path) {
 	std::pair<std::string, std::string> ret;
 	if (path.size() <= 1) {
+#if CC_PLATFORM_WIN32 != CC_TARGET_PLATFORM && CC_PLATFORM_WINRT != CC_TARGET_PLATFORM && CC_PLATFORM_WP8 != CC_TARGET_PLATFORM
+	if (ret.first.empty()) ret.first = "/"; // posix root //FIXME: added, fix title button empty bug
+#endif	
 		ret.second = path;
 		return ret;
 	}
@@ -75,6 +78,9 @@ std::pair<std::string, std::string> TVPBaseFileSelectorForm::PathSplit(const std
 			break;
 		}
 	}
+#if CC_PLATFORM_WIN32 != CC_TARGET_PLATFORM && CC_PLATFORM_WINRT != CC_TARGET_PLATFORM && CC_PLATFORM_WP8 != CC_TARGET_PLATFORM
+	if (ret.first.empty()) ret.first = "/"; // posix root //FIXME: added, fix title button empty bug
+#endif		
 	ret.second = path;
 	return ret;
 }
@@ -136,6 +142,11 @@ void TVPBaseFileSelectorForm::ListDir(std::string path) {
 		_title->setTitleFontName("SIMHEI.ttf");
 		if (!split_path.second.empty() && (split_path.second.back() == '/' || split_path.second.back() == '\\')) {
 			split_path.second.pop_back();
+		}
+#else
+//FIXME: added, for linux, /home->home
+		if (!split_path.second.empty() && (split_path.second.front() == '/')) {
+			split_path.second.erase(0, 1);
 		}
 #endif
     	if (path == "/") {
