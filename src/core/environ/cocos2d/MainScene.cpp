@@ -1662,6 +1662,8 @@ void TVPMainScene::pushUIForm(cocos2d::Node *ui, eEnterAni ani) {
 	}
 }
 
+static cocos2d::Node *ui_ = 0;
+static cocos2d::Node *ColorMask_ = 0;
 void TVPMainScene::popUIForm(cocos2d::Node *form, eLeaveAni ani) {
 	int n = UINode->getChildrenCount();
 	if (n <= 0) return;

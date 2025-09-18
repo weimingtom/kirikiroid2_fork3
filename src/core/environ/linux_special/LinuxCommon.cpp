@@ -1,3 +1,5 @@
+#include <libgen.h> //for dirname()
+
 #include "minizip/unzip.h"
 #include "zlib.h"
 #include <map>
@@ -159,7 +161,23 @@ static std::vector<std::string> &split(const std::string &s, char delim, std::ve
 
 
 static std::string GetInternalStoragePath() {
+printf(">>>>>>>> GetInternalStoragePath()\n");
+#if 0
     return "";
+#else
+    char buffer[PATH_MAX];
+    ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1);
+    if(len == -1) {
+        return "";
+    }
+    buffer[len] = '\0';
+    // symbol link
+    char resolved[PATH_MAX];
+    if(realpath(buffer, resolved) != 0) {
+        return std::string(dirname(resolved));
+    }
+    return std::string(dirname(buffer));
+#endif    
 }
 
 

@@ -324,6 +324,7 @@ void TVPBaseFileSelectorForm::onCellLongPress(int idx)
 }
 
 void TVPBaseFileSelectorForm::getShortCutDirList(std::vector<std::string> &pathlist) {
+printf("<<<<<<<<<< TVPBaseFileSelectorForm::getShortCutDirList\n");
 	std::vector<std::string> paths = TVPGetDriverPath();
 	for (const std::string &path : paths) {
 		pathlist.emplace_back(path);
