@@ -65,6 +65,9 @@ static void TVPLoadGraphicRouter(void* formatdata, void *callbackdata, tTVPGraph
 			header[3] >= 0xE0 && header[3] <= 0xEF ) {
 			return CALL_LOAD_FUNC(TVPLoadJPEG);
 		}
+#if MY_USE_YURI
+		// ## fix ld: error: undefined symbol: TVPLoadBPG
+#endif
 // 		if (!memcmp(header, "BPG", 3)) {
 // 			return CALL_LOAD_FUNC(TVPLoadBPG);
 // 		}

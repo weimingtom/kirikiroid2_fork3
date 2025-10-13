@@ -12,7 +12,11 @@
 //---------------------------------------------------------------------------
 
 #include "tjsCommHead.h"
+#if MY_USE_YURI
+#include "FreeType.h"
+#else
 #include "KrkrFreeType.h"
+#endif
 //#include "NativeFreeTypeFace.h"
 //#include "uni_cp932.h"
 //#include "cp932_uni.h"

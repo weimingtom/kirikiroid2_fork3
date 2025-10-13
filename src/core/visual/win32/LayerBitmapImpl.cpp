@@ -37,7 +37,11 @@ void TVPInitWindowOptions();
 #include "CharacterData.h"
 #include "PrerenderedFont.h"
 #include "FontSystem.h"
+#if MY_USE_YURI
+#include "visual/FreeType.h"
+#else
 #include "visual/KrkrFreeType.h"
+#endif
 #include "FreeTypeFontRasterizer.h"
 //#include "GDIFontRasterizer.h"
 #include "BitmapBitsAlloc.h"

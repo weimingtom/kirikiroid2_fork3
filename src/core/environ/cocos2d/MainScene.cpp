@@ -1661,9 +1661,12 @@ void TVPMainScene::pushUIForm(cocos2d::Node *ui, eEnterAni ani) {
 		ui->runAction(EaseQuadraticActionOut::create(MoveTo::create(UI_CHANGE_DURATION, Vec2::ZERO)));
 	}
 }
-
+#if MY_USE_YURI
+//none
+#else
 static cocos2d::Node *ui_ = 0;
 static cocos2d::Node *ColorMask_ = 0;
+#endif
 void TVPMainScene::popUIForm(cocos2d::Node *form, eLeaveAni ani) {
 	int n = UINode->getChildrenCount();
 	if (n <= 0) return;
@@ -1693,7 +1696,11 @@ void TVPMainScene::popUIForm(cocos2d::Node *form, eLeaveAni ani) {
 		ui->addChild(ColorMask);
 		ColorMask->runAction(FadeOut::create(UI_CHANGE_DURATION));
         ui->runAction(EaseQuadraticActionOut::create(MoveTo::create(UI_CHANGE_DURATION, Vec2(size.width, 0))));
-#if 1
+#if MY_USE_YURI
+		runAction(Sequence::createWithTwoActions(DelayTime::create(UI_CHANGE_DURATION), CallFunc::create([=](){
+			ui->removeFromParent();
+		})));
+#else
 ui_ = ui;            
         this->runAction(Sequence::createWithTwoActions(
             DelayTime::create(UI_CHANGE_DURATION),
@@ -1710,7 +1717,11 @@ ui_ = ui;
 		Node *ui = ColorMask->getChildren().at(0);
 		if (form) CCAssert(form == ui, "must be the same form");
 		ui->runAction(EaseQuadraticActionIn::create(MoveTo::create(UI_CHANGE_DURATION, Vec2(0, -ui->getContentSize().height))));
-#if 1       
+#if MY_USE_YURI
+		runAction(Sequence::createWithTwoActions(DelayTime::create(UI_CHANGE_DURATION), CallFunc::create([=](){
+			ColorMask->removeFromParent();
+		})));
+#else     
 printf("<<<<<<<<<<<<<<<< runAction ColorMask->removeFromParent()\n");  
 ColorMask_ = ColorMask;
         runAction(Sequence::createWithTwoActions(

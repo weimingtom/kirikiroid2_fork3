@@ -3145,7 +3145,11 @@ static void logTLG6_chroma() {
 #endif
 #define REGISTER_TVPGL_ONLY(origf, f) origf = f;
 
+#if MY_USE_YURI
+// #include "Protect.h"
+#else
 #include "Protect.h"
+#endif
 #ifdef __cplusplus
 extern "C" {
 #endif

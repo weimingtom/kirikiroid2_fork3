@@ -763,11 +763,19 @@ const char * tTVPUnpackArchiveImplLibArchive::_onPassphraseCallback(struct archi
 
 #if MY_USE_LIB7ZIP
 
+#if MY_USE_YURI
+extern "C" {
+#include "p7zip/C/7z.h"
+#include "p7zip/C/7zFile.h"
+#include "p7zip/C/7zCrc.h"
+}
+#else
 extern "C" {
 #include "7zip/C/7z.h"
 #include "7zip/C/7zFile.h"
 #include "7zip/C/7zCrc.h"
 }
+#endif
 #include <fcntl.h>
 #include <unistd.h>
 #include "win32io.h"

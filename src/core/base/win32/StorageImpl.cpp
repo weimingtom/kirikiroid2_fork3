@@ -155,9 +155,14 @@ printf("==================>TVPListDir,while, %s, %s\n", fullpath.c_str(), folder
 	}
 }
 
+#if MY_USE_YURI
+//none
+#else
 #undef st_atime
 #undef st_mtime
 #undef st_ctime
+#endif
+
 void TVPGetLocalFileListAt(const ttstr &name, const std::function<void(const ttstr&, tTVPLocalFileInfo*)>& cb) {
 	DIR *dirp;
 	struct dirent *direntp;

@@ -16,7 +16,11 @@
 #include <math.h>
 #include "tjsTypes.h"
 #include "tvpgl.h"
+#if !MY_USE_YURI
 #include "Protect.h"
+#else
+// #include "Protect.h"
+#endif
 #include <float.h>
 
 #define __cdecl

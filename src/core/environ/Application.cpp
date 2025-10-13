@@ -54,7 +54,13 @@ static tTJSCriticalSection _NoMemCallBackCS;
 static void *_reservedMem = malloc(1024 * 1024 * 4); // 4M reserved mem
 static bool _project_startup = false;
 tTJS *TVPAppScriptEngine;
+#if MY_USE_YURI
+// ## fix ld: error: undefined symbol: __real_malloc
+// #define HOOK_MALLOC 
+#else
+
 #define HOOK_MALLOC
+#endif
 
 static void _do_compact() {
 	TVPDeliverCompactEvent(TVP_COMPACT_LEVEL_MAX);
@@ -101,7 +107,11 @@ ttstr TVPGetErrorDialogTitle() {
 	}
 }
 
+#if MY_USE_YURI
+//none
+#else
 #undef HOOK_MALLOC
+#endif
 #ifdef HOOK_MALLOC
 extern "C" {
 	void* tc_malloc(size_t size);

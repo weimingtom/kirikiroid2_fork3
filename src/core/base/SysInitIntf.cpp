@@ -18,7 +18,11 @@
 #include "SysInitIntf.h"
 #include "ScriptMgnIntf.h"
 #include "tvpgl.h"
+#if MY_USE_YURI
+// #include "Protect.h"
+#else
 #include "Protect.h"
+#endif
 
 
 //---------------------------------------------------------------------------

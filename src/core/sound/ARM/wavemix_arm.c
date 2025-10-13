@@ -1,7 +1,11 @@
 #include <arm_neon.h>
 #include "cpu_types.h"
 #include <assert.h>
+#if MY_USE_YURI
+// #include "Protect.h"
+#else
 #include "Protect.h"
+#endif
 #include "tjsTypes.h"
 
 extern tjs_uint32 TVPCPUFeatures;

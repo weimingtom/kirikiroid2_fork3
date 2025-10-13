@@ -18,8 +18,15 @@
 #pragma warning(push)
 #pragma warning(disable : 4819)
 #endif
+
+#if MY_USE_YURI
+#include "freetype2/ft2build.h"
+#include "freetype2/freetype.h"
+// #include FT_FREETYPE_H
+#else
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#endif
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif

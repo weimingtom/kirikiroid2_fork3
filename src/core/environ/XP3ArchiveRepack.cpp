@@ -2,11 +2,19 @@
 
 #include "XP3ArchiveRepack.h"
 #include <functional>
+#if MY_USE_YURI
+#include "p7zip/CPP/7zip/Archive/7z/7zOut.h"
+#include "p7zip/CPP/7zip/Common/StreamObjects.h"
+extern "C" {
+#include "p7zip/C/7zCrc.h"
+}
+#else
 #include "7zip/CPP/7zip/Archive/7z/7zOut.h"
 #include "7zip/CPP/7zip/Common/StreamObjects.h"
 extern "C" {
 #include "7zip/C/7zCrc.h"
 }
+#endif
 #include "TextStream.h"
 #include "StorageImpl.h"
 #include "XP3Archive.h"
@@ -220,9 +228,13 @@ XP3ArchiveRepackAsync::XP3ArchiveRepackAsync()
 {
 	TVPDetectCPU();
 
+#if MY_USE_YURI
+	TVPGL_ASM_Init();
+#else
 //#if  !defined(__i386__) && !defined(__x86_64__)
 //	TVPGL_ASM_Init();
 //#endif
+#endif
 }
 
 XP3ArchiveRepackAsync::~XP3ArchiveRepackAsync() {
@@ -263,7 +275,11 @@ void XP3ArchiveRepackAsync::SetOption(const std::string &name, bool v)
 	_impl->SetOption(name, v);
 }
 
+#if MY_USE_YURI
+XP3ArchiveRepackAsyncImpl::XP3ArchiveRepackAsyncImpl()
+#else
 XP3ArchiveRepackAsyncImpl::XP3ArchiveRepackAsyncImpl(): CoderCompress(), CoderCopy()
+#endif
 {
 	if (!g_CrcTable[1]) CrcGenerateTable();
 	CreateCoder(nCodecMethod, true, CoderCompress);

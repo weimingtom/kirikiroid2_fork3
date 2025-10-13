@@ -8,6 +8,9 @@
 #include "ui/UICheckBox.h"
 #include "Platform.h"
 #include "cocos2d/MainScene.h"
+#if MY_USE_YURI
+#include "cocostudio/ActionTimeline/CSLoader.h"
+#endif
 #include "ConfigManager/LocaleConfigManager.h"
 #include "platform/CCFileUtils.h" //if build for android, need modify it to platform/xxxx.h //#include "CCFileUtils.h"
 #include "base/CCDirector.h"
@@ -347,6 +350,37 @@ void TVPBaseFileSelectorForm::onTitleClicked(cocos2d::Ref *owner) {
 		ListDir(static_cast<Button*>(node)->getCallbackName());
 		TVPMainScene::GetInstance()->popUIForm(nullptr, TVPMainScene::eLeaveToBottom);
 	};
+
+#if MY_USE_YURI
+
+	for (const std::string &path : paths) {
+		CSBReader reader;
+		Widget *cell = static_cast<Widget*>(reader.Load("ui/ListItem.csb"));
+		Button *item = dynamic_cast<Button*>(reader.findController("item"));
+		__android_log_print(ANDROID_LOG_INFO, "## krkr2yuri",
+                            "onTitleClicked path=%s, cell=%p, item=%p, func=%p", path.c_str(), cell, item, func);
+
+		// ## fix Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x39 cocos2d::ui::LinearLayoutParameter::setGravity
+		// Widget Inherits ProtectedNode, and LayoutParameterProtocol.
+//		Widget* cell2 = new Widget();
+//		cell2->setContentSize(cell->getContentSize());
+//      cell2->addChild(item);
+		item->setContentSize(cell->getContentSize());
+		item->setCallbackName(path);
+		item->setTitleText(path);
+		item->addClickEventListener(func);
+		// ## fixme, button click position error
+		cells.emplace_back(item);
+		buttons.emplace_back(item);
+	}
+
+
+
+#else /*================================*/
+
+
+
+
 	for (const std::string &path : paths) {
 		CSBReader reader;
 #if 0		
@@ -393,6 +427,7 @@ void TVPBaseFileSelectorForm::onTitleClicked(cocos2d::Ref *owner) {
 		cells.emplace_back(cell);
 		buttons.emplace_back(item);
 	}
+#endif /*MY_USE_YURI*/	
 	_listform = TVPListForm::create(cells);
 	_listform->show();
 	// march all button's text in its width
@@ -837,7 +872,11 @@ void TVPListForm::initFromInfo(const std::vector<cocos2d::ui::Widget*> &cells) {
 	setContentSize(sceneSize);
 	CSBReader reader;
 	_root = reader.Load("ui/ListView.csb");
+#if MY_USE_YURI
+	ListView* listview = dynamic_cast<ListView*>(reader.findController("list"));
+#else	
 	ListView* listview = static_cast<ListView*>(reader.findController("list"));
+#endif
 	float height = 10;
 	for (Widget* cell : cells) {
 		height += cell->getContentSize().height;
@@ -863,12 +902,25 @@ void TVPListForm::initFromInfo(const std::vector<cocos2d::ui::Widget*> &cells) {
 		ui::Helper::doLayout(cell);
 		listview->pushBackCustomItem(cell);
 	}
+#if MY_USE_YURI
+	if(!listview->getItems().empty()) {
+		if (listview->getItems().back()->getBottomBoundary() < 0) {
+			listview->setClippingEnabled(true);
+		} else {
+			listview->setBounceEnabled(false);
+		}
+	}
+#else
 	if (listview->getItems().back()->getBottomBoundary() < 0) {
 		listview->setClippingEnabled(true);
 	} else {
 		listview->setBounceEnabled(false);
 	}
+#endif	
 	addChild(_root);
+#if MY_USE_YURI
+	// __android_log_print(ANDROID_LOG_INFO, "## krkr2yuri", "after initFromInfo");
+#endif
 }
 
 void TVPListForm::show() {
@@ -1027,6 +1079,9 @@ void TVPBaseFileSelectorForm::FileItemCellImpl::initFromFile(const char * filena
 					}
 				}, 1.0f, str_long_press);
 				break;
+#if MY_USE_YURI
+			// ## fix scole bug
+#endif
             case Widget::TouchEventType::MOVED: {
                 auto diff = sender->getTouchMovePosition() - sender->getTouchBeganPosition();
                 if (abs(diff.x) > 5 and abs(diff.y) > 5) {

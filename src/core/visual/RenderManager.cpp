@@ -18,7 +18,11 @@ extern "C" {
 #define __STDC_CONSTANT_MACROS
 #endif
 #if MY_USE_FFMPEG
+#if !MY_USE_YURI
 //#include "libswscale/swscale.h"
+#else
+#include "libswscale/swscale.h"
+#endif
 #endif
 };
 #if !MY_USE_MINLIB && !defined(__MINGW32__)
@@ -34,7 +38,11 @@ extern "C" {
 #include "tjsHashSearch.h"
 #include "EventIntf.h"
 #if !MY_USE_MINLIB
+#if !MY_USE_YURI
 #include "lz4.h"
+#else
+#include "lz4/lz4.h"
+#endif
 #endif
 #ifdef _MSC_VER
 #pragma comment(lib,"opencv_ts300d.lib")

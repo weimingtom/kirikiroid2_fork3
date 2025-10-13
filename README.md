@@ -22,6 +22,11 @@
 * Android studio apk version not sync
 * Kirikiri2 log output is none
 
+## Merge Kirikiroid2Yuri
+* https://github.com/YuriSizuku/Kirikiroid2Yuri
+* see MY_USE_YURI
+* kirikiroid2_fork4_v1.7z
+
 ## For Xubuntu 20.04, desktop amd64, in VirtualBox 7.1.4 or VMware 15.5 
 * $ sudo apt update
 * $ sudo apt install lftp gedit make gcc g++
