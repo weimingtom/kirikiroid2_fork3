@@ -3,6 +3,15 @@
 **No windowEx.dll support** (No System.getMonitorInfo implementation), just able to run a very simple demo _testdata/data.xp3   
 
 ## Bugs
+* https://github.com/weimingtom/kirikiroid2_fork3/blob/master/src/core/environ/DumpSend.cpp
+```
+#if !MY_USE_MINLIB
+#include "minizip/ioapi.h"
+#include "minizip/zip.h"
+#endif
+->
+#if MY_USE_MINLIB
+```
 * Output wrong characters in console (make and cmake) for Xubuntu 25.04 and other OS (except xubuntu20 make version) 
 * Need SDL.h ? Need swscale.h ? Need avcodec.h ? Need pkg-config ?
 * No history file list, it displays empty list
